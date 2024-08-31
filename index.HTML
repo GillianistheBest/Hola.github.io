@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      background-color: lightcyan;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Hangman</h1>
+
+  <label>Enter one letter:</label>
+  <input type = "text"id="letter"> 
+  <br>
+
+  <h3 id="word"></h3>
+
+  <button onclick="submit()">Submit</button>
+
+  <script>
+    var answer = random_word ();
+    var list = ["_","_","_","_"];
+    shows_board ();
+    
+    function submit() {
+      var letter = document.getElementById ("letter").value;
+
+      if (check_alphabet (letter) == false) {
+        alert ("Please enter a lowercase letter");
+        return;
+      }
+      
+      if (check_correct (letter) == false) {
+        alert ("Please try again");
+        return;
+      }
+      
+      shows_board ();
+    }
+
+    function shows_board () {
+      var h3 = document.getElementById ("word");
+      h3.innerHTML = list.join (" ");      
+    }
+
+    function check_correct (letter) {
+      var found_letter = false;
+      
+      for (var i=0; i<4; i++){
+        if (answer[i] ==letter) {
+          found_letter=true;
+          list[i] = letter;
+        }
+      }
+
+      return found_letter;
+    }
+    
+    function check_alphabet (letter) {
+      var alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+      for (var i = 0; i < 26; i++) {
+        if (letter == alphabet[i]) {
+          return true;
+        }
+      }
+      
+      return false;
+    }
+
+    function random_word () { 
+      var words = ["pigs", "rats","goat", "bird"];
+      var random_word = Math.floor (Math.random () * 4);
+      return words [random_word]; 
+    }
+  </script>
+</body>
+
+</html>
